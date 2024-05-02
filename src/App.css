@@ -1,1 +1,13 @@
+#app{
+  display: grid;
+  grid-template-columns: repeat(8,1fr);
+  grid-template-rows: repeat(8,1fr);
+  height:90vh;
+  overflow: hidden;
+}
 
+#spaceship {
+  width:100%;
+  grid-area: 2/2;
+  transform: rotate(0deg);
+}
