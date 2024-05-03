@@ -1,43 +1,24 @@
 // import React from 'react'
-import { useState, useEffect } from "react";
+// import { useState } from "react";
 import SpaceShip from "./components/SpaceShip"
+import Lights from "./components/Lights";
 
 
 export default function App() {
-  const [xPos,setXPos]=useState<number>(1);
-  const [yPos,setYPos]=useState<number>(1);
+    
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case "ArrowUp":
-          yPos > 1 ? setYPos(yPos - 1) : setYPos(1);
-          break;
-        case "ArrowDown":
-          yPos < 8 ? setYPos(yPos + 1) : setYPos(8);
-          break;
-        case "ArrowLeft":
-          xPos > 1 ? setXPos(xPos - 1) : setXPos(1);
-          break;
-        case "ArrowRight":
-          xPos < 8 ? setXPos(xPos + 1) : setXPos(8);
-          break;
-        default:
-          break;
-      }
-    };
+    type PosObj = {xPos:number,yPos:number};
 
-    document.addEventListener("keydown", handleKeyDown);
+    let pos:PosObj={'xPos':1,'yPos':1};
 
-    // Retirer l'écouteur d'événements lorsque le composant est démonté
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [xPos, yPos]);
+  function changePosSpaceShip(value:PosObj){
+    pos=value;
+  }
 
   return (
     <div id="app"  >
-      <SpaceShip xPos={xPos} yPos={yPos}/>
+      <SpaceShip updatePosition={(value:PosObj)=>changePosSpaceShip(value)}/>
+      <Lights />
     </div>
   )
 }

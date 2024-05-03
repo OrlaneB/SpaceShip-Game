@@ -4,6 +4,12 @@
   grid-template-rows: repeat(8,1fr);
   height:90vh;
   overflow: hidden;
+  aspect-ratio: 1;
+  margin:5vh auto;
+  border: 10px solid #F2E205;
+  box-sizing: border-box;
+  border-radius: 15px;
+  padding: 25px;
 }
 
 #spaceship {
