@@ -1,5 +1,6 @@
 // import React from 'react'
 // import { useState } from "react"
+// import { useEffect } from "react";
 import "../style/Lights.css"
 
 type LightObj = {
@@ -8,12 +9,24 @@ type LightObj = {
     yPos:number
 }
 
-type Props = {}
+// interface Position {
+//     xPos: number;
+//     yPos: number;
+//   }
 
-export default function Lights({}: Props) {
+  type updateListCb = (arg0:LightObj[])=>void;
+
+
+interface Props {
+    updateListCb:updateListCb
+}
+
+
+export default function Lights({updateListCb }: Props) {
     // const[step,setStep]=useState<number>(1);
     let listLights:LightObj[]=[];
     let nbLights:number = 6;
+
 
     function createLights(){
         //for loop to create the lights
@@ -23,9 +36,6 @@ export default function Lights({}: Props) {
             let xPos = Math.floor(Math.random() * 8)+1;
             let yPos = Math.floor(Math.random() * 8)+1;
 
-            // let uniqueLight=false;
-
-            // while(!uniqueLight){
                 
                 for(let j=0;j<listLights.length;j++){
                     
@@ -38,21 +48,29 @@ export default function Lights({}: Props) {
                         // console.log(`After : ${xPos},${yPos}`);
                     }
                 }
-            // }
+          
             listLights.push({id:i,'xPos':xPos,'yPos':yPos})
-
-            console.log(`My light is position : ${xPos} : ${yPos}`)
+            
+    
         }
+        updateListCb(listLights);
 
-        // console.log(listLights)
+    //    for (let i = 0; i < listLights.length; i++) {
+    //     console.log(`My light is positioned at: ${listLights[i].xPos} : ${listLights[i].yPos}`);
+    // }
     }
 
     createLights();
 
+    
+    
+    // checkIfSpaceShipMeetsLight();
+    // console.log(listLights[0].xPos,listLights[0].yPos)
+
   return (
     <div id="lightsDiv">
        {listLights.map((light)=>(
-            <div key={light.id} style={{gridRowStart:light.xPos,gridColumnStart: light.yPos}} className="light"></div>
+            <div key={light.id} style={{gridRowStart:light.xPos,gridColumnStart: light.yPos}} className="light">{light.id}</div>
        ))}
     </div>
   )
