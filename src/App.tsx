@@ -2,7 +2,7 @@
 // import { useState } from "react";
 import SpaceShip from "./components/SpaceShip"
 import Lights from "./components/Lights";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 export default function App() {
@@ -13,6 +13,7 @@ export default function App() {
       xPos:number;
       yPos:number
   }
+  type updateListCb = (arg0:LightObj[])=>void;
   
 
     let pos:PosObj={'xPos':1,'yPos':1};
@@ -23,7 +24,7 @@ export default function App() {
       checkIfSpaceShipMeetsLight()
     }
 
-    function updateListLights(value:LightObj):void{
+    const newListLight:updateListCb =function updateListLights(value:LightObj[]){
       listLights=value;
       console.log(listLights)
     }
@@ -51,7 +52,7 @@ export default function App() {
   return (
     <div id="app"  >
       <SpaceShip updatePosition={(value:PosObj)=>changePosSpaceShip(value)}/>
-      <Lights spaceShipPos={pos} updateListCb={(value)=>updateListLights(value)}/>
+      <Lights updateListCb={newListLight}/>
     </div>
   )
 }
